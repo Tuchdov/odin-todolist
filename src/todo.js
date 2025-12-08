@@ -9,11 +9,17 @@ export class ToDo {
    * @param {Date|string} dueDate – When the task is due (Date object or ISO‑8601 string)
    * @param {boolean} isCompleted - is the task completed
    */
-  constructor(title, description, priority, dueDate) {
+  constructor(title, description, priority, dueDate, isCompleted = false, id =null) {
     this.title   = title;
     this.description = description;
     this.priority    = priority;
-    this.isCompleted = false;
+    this.isCompleted = isCompleted;
+        if (id){
+    this.id = id;
+}
+    else{
+    this.id = Date.now().toString() + Math.random().toString(36).slice(2);
+}
 
     // Convert to a Date object if a string was passed
     this.dueDate = dueDate instanceof Date
@@ -42,5 +48,5 @@ export class ToDo {
   
 }
 
-const todo1 = new ToDo()
+
 

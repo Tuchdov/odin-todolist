@@ -18,11 +18,11 @@ export class Project {
         this.todos.push(task);
     }
     // remove the task
-    removeTodo(task){
-       this.todos =  this.todos.filter((todo)=> todo.title !== task.title);
+    removeTodo(id){
+       this.todos =  this.todos.filter((todo)=> todo.id !== id);
     }
-    findTodo(taskname){
-        return  this.todos.find((todo) => todo.title === taskname);
+    findTodo(id){
+        return  this.todos.find((todo) => todo.id === id);
     }
 
 }

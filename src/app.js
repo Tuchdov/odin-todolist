@@ -1,9 +1,43 @@
-export function setupCounter(element) {
-  let counter = 0
-  const setCounter = (count) => {
-    counter = count
-    element.innerHTML = `count is ${counter}`
-  }
-  element.addEventListener('click', () => setCounter(counter + 1))
-  setCounter(0)
+"use strict";
+import { Project } from "./project.js";
+export class App {
+    constructor(){
+      this.projects = [];
+    }
+
+/* 
+Methods to start with:
+addProject(name) - creates and adds a new project
+removeProject(projectName) - removes a project (even if it has todos)
+findProject(projectName) - finds and returns a project
+moveTodo(taskTitle, fromProjectName, toProjectName) - moves a todo between projects */
+
+addProject(name){
+  let proj = new Project(name);
+  this.projects.push(proj);
+}
+removeProject(projectName){
+  this.projects = this.projects.filter( (project) => project.name !==projectName );
+}
+findProject(projectName){
+  return this.projects.find((project) => project.name === projectName);
+}
+moveTodo(todoId, fromProjectName, toProjectName){
+  const originProject = this.findProject(fromProjectName);
+  const destinationProject = this.findProject(toProjectName);
+  // if one of the projects is not do nothing
+  if (!originProject || !destinationProject) {
+    return;
+}
+
+  const task = originProject.findTodo(todoId);
+// if the task is not found do nothing
+if (!task) {
+  return;
+}
+
+  destinationProject.addTodo(task);
+  originProject.removeTodo(todoId);
+
+}
 }
