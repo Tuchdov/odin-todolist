@@ -4,10 +4,46 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>zs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>The Bear's to do list</title>
   </head>
   <body>
-    <div id="app"></div>
+     <header>An awesomw WIP header</header>
+    <div id="app">
+   
+  
+  <aside id="sidebar">
+    <!-- JS will inject project list here -->
+       <ul id="project-list">
+    <!-- JS injects projects here -->
+       </ul>
+     <button type="button">add new project</button>
+  </aside>
+  
+  <main id="content">
+           <ul id="task-list">
+    <!-- JS injects projects here -->
+           </ul>
+    <button>add task</button>
+    <!-- JS will inject tasks here -->
+  </main>
+  </div>
+  <footer>
+     <div class="footer-content">
+            <div class="footer-text">Proudly made by Dov Tuch</div>
+            <div class="social-links">
+                <a href="https://github.com/Tuchdov" class="social-link github" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/dov-tuch/" class="social-link linkedin" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-linkedin"></i>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+        </div>
+  </footer>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
