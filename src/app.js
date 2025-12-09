@@ -15,6 +15,7 @@ moveTodo(taskTitle, fromProjectName, toProjectName) - moves a todo between proje
 addProject(name){
   let proj = new Project(name);
   this.projects.push(proj);
+  return proj;
 }
 removeProject(projectName){
   this.projects = this.projects.filter( (project) => project.name !==projectName );
