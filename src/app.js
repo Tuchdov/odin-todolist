@@ -12,8 +12,8 @@ removeProject(projectName) - removes a project (even if it has todos)
 findProject(projectName) - finds and returns a project
 moveTodo(taskTitle, fromProjectName, toProjectName) - moves a todo between projects */
 
-addProject(name){
-  let proj = new Project(name);
+addProject(name, id = null){
+  let proj = new Project(name, id);
   this.projects.push(proj);
   return proj;
 }
