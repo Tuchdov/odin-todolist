@@ -19,7 +19,7 @@ static load(){
 
        // if  date is stored then rehydrate todos,projects, app
         for (const project of appParsedData.projects) {
-           const projectInit =  app.addProject(project.name);
+           const projectInit =  app.addProject(project.name, project.id);
 
             for (const task of project.todos) {
                const todo = new ToDo(task.title, task.description, task.priority, task.dueDate, task.isCompleted , task.id);
