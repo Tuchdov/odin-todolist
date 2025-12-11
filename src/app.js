@@ -17,11 +17,11 @@ addProject(name, id = null){
   this.projects.push(proj);
   return proj;
 }
-removeProject(projectName){
-  this.projects = this.projects.filter( (project) => project.name !==projectName );
+removeProject(projectId){
+  this.projects = this.projects.filter( (project) => project.id !==projectId );
 }
-findProject(projectName){
-  return this.projects.find((project) => project.name === projectName);
+findProject(projectId){
+  return this.projects.find((project) => project.id === projectId);
 }
 moveTodo(todoId, fromProjectName, toProjectName){
   const originProject = this.findProject(fromProjectName);

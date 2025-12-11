@@ -91,6 +91,23 @@ Deno.test("renderProjects: renders single project correctly", () => {
     assertEquals(projectList.querySelector("li").textContent, "Solo Project");
 });
 
+
+Deno.test("renderProjects: each li has correct data-id attribute", () => {
+    const doc = createMockDocument();
+    const projects = [
+        { id: "proj-abc-123", name: "Work" },
+        { id: "proj-def-456", name: "Personal" }
+    ];
+
+    renderProjects(projects, doc);
+
+    const projectList = doc.querySelector("#project-list");
+    const listItems = projectList.querySelectorAll("li");
+
+    assertEquals(listItems[0].getAttribute("data-id"), "proj-abc-123");
+    assertEquals(listItems[1].getAttribute("data-id"), "proj-def-456");
+});
+
 import { renderTasks } from "../src/dom.js"; // Ensure this is imported if not already
 
 // ==================== RENDER TASKS TESTS ====================
