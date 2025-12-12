@@ -2,7 +2,9 @@
 
 import { assertEquals, assertExists } from "jsr:@std/assert";
 import { DOMParser } from "jsr:@b-fuze/deno-dom";
-import { renderProjects } from "../src/dom.js";
+import { App } from "../src/app.js";
+import { ToDo } from "../src/todo.js";
+import { renderProjects, renderTasks, initEventListeners, handleProjectClick } from "../src/dom.js";
 
 // Helper function to create a fake document with the expected HTML structure
 function createMockDocument() {
@@ -108,7 +110,6 @@ Deno.test("renderProjects: each li has correct data-id attribute", () => {
     assertEquals(listItems[1].getAttribute("data-id"), "proj-def-456");
 });
 
-import { renderTasks } from "../src/dom.js"; // Ensure this is imported if not already
 
 // ==================== RENDER TASKS TESTS ====================
 
@@ -279,4 +280,96 @@ Deno.test("renderTasks: each li has correct data-id attribute", () => {
 
     assertEquals(listItems[0].getAttribute("data-id"), "task-abc-123");
     assertEquals(listItems[1].getAttribute("data-id"), "task-def-456");
+});
+
+
+// ==================== EVENT HANDLING TESTS ====================
+
+Deno.test("initEventListeners and handleProjectClick: clicking a project renders its tasks", () => {
+    const doc = createMockDocument();
+    
+    // 1. Create an App with projects and todos
+    const app = new App();
+    const workProject = app.addProject("Work");
+    const personalProject = app.addProject("Personal");
+    
+    // Add todos to Work project
+    workProject.addTodo(new ToDo("Task 1", "desc", "high", "2025-01-15"));
+    workProject.addTodo(new ToDo("Task 2", "desc", "medium", "2025-01-16"));
+    workProject.addTodo(new ToDo("Task 3", "desc", "low", "2025-01-17"));
+    
+    // Add todos to Personal project
+    personalProject.addTodo(new ToDo("Personal Task", "desc", "high", "2025-01-18"));
+    
+    // 2. Render the projects
+    renderProjects(app.projects, doc);
+    
+    // 3. Initialize event listeners
+    initEventListeners(app, doc);
+    
+    // 4. Get the project list items
+    const projectList = doc.querySelector("#project-list");
+    const projectItems = projectList.querySelectorAll("li");
+    
+    // 5. Simulate clicking the first project (Work)
+    projectItems[0].dispatchEvent(new Event("click", { bubbles: true }));
+    
+    // 6. Check that Work's tasks are rendered
+    const taskList = doc.querySelector("#task-list");
+    assertEquals(taskList.children.length, 3);
+    
+    // Verify the task content
+    assertEquals(taskList.children[0].textContent.includes("Task 1"), true);
+    assertEquals(taskList.children[1].textContent.includes("Task 2"), true);
+    assertEquals(taskList.children[2].textContent.includes("Task 3"), true);
+});
+
+Deno.test("handleProjectClick: switching between projects shows correct tasks", () => {
+    const doc = createMockDocument();
+    
+    // Create App with projects and todos
+    const app = new App();
+    const workProject = app.addProject("Work");
+    const personalProject = app.addProject("Personal");
+    
+    workProject.addTodo(new ToDo("Work Task 1", "desc", "high", "2025-01-15"));
+    workProject.addTodo(new ToDo("Work Task 2", "desc", "medium", "2025-01-16"));
+    
+    personalProject.addTodo(new ToDo("Personal Task", "desc", "high", "2025-01-18"));
+    
+    // Render and setup
+    renderProjects(app.projects, doc);
+    initEventListeners(app, doc);
+    
+    const projectItems = doc.querySelector("#project-list").querySelectorAll("li");
+    const taskList = doc.querySelector("#task-list");
+    
+    // Click Work project
+    projectItems[0].dispatchEvent(new Event("click", { bubbles: true }));
+    assertEquals(taskList.children.length, 2);
+    assertEquals(taskList.textContent.includes("Work Task 1"), true);
+    
+    // Click Personal project
+    projectItems[1].dispatchEvent(new Event("click", { bubbles: true }));
+    assertEquals(taskList.children.length, 1);
+    assertEquals(taskList.textContent.includes("Personal Task"), true);
+    
+    // Work tasks should NOT be visible anymore
+    assertEquals(taskList.textContent.includes("Work Task 1"), false);
+});
+
+Deno.test("handleProjectClick: clicking project with no todos renders empty list", () => {
+    const doc = createMockDocument();
+    
+    const app = new App();
+    const emptyProject = app.addProject("Empty Project");
+    
+    renderProjects(app.projects, doc);
+    initEventListeners(app, doc);
+    
+    const projectItems = doc.querySelector("#project-list").querySelectorAll("li");
+    projectItems[0].dispatchEvent(new Event("click", { bubbles: true }));
+    
+    const taskList = doc.querySelector("#task-list");
+    assertEquals(taskList.children.length, 0);
 });
