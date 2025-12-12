@@ -1,13 +1,29 @@
-# Dependencies
-/node_modules
+# Deno lock file (should be committed to ensure consistent dependency resolution)
+# deno.lock
 
-# Build output
-/dist
+# Vite build output
+dist
+.vite-inspect
+.vite/
 
-# Local environment variables
-.env.local
+# Node.js dependencies (if using npm in parallel or for tooling setup)
+node_modules
+
+# Deno-specific directories/files
+.deno_dir/
+
+# Environment variables
+.env
 .env.*.local
 
-# Operating System Files
+# IDE/Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
 .DS_Store
-Thumbs.db
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+pnpm-error.log*
