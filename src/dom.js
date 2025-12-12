@@ -2,6 +2,14 @@
 /**
 * @param {Array} projects – The projects array from the app 
 */
+
+import { App } from "./app.js";
+import { AppStorage } from "./storage.js";
+import { ToDo } from "./todo.js";
+import { Project } from "./project.js";
+// Track which project is currently active
+let activeProjectId = null;
+
 export function renderProjects(projects, domManipulator = document) {
     // Get the <ul id="project-list"> element
     // Clear it out
@@ -10,7 +18,7 @@ export function renderProjects(projects, domManipulator = document) {
     // Append to the <ul>
 
     const projectList = domManipulator.querySelector('#project-list');
- 
+
     projectList.innerHTML = '';
 
     for (const project of projects) {
@@ -56,32 +64,143 @@ export function renderTasks(tasks, domManipulator = document) {
 
 }
 
-// This function is called ONCE to set things up
+// // This function is called ONCE to set things up
+// export function initEventListeners(app, domManipulator = document) {
+//   const projectList = domManipulator.querySelector('#project-list');
+
+//   // Add ONE listener that will handle ALL clicks
+//   projectList.addEventListener('click', (event) => {
+//     handleProjectClick(event, app, domManipulator);
+//   });
+// }
+
 export function initEventListeners(app, domManipulator = document) {
-  const projectList = domManipulator.querySelector('#project-list');
-  
-  // Add ONE listener that will handle ALL clicks
-  projectList.addEventListener('click', (event) => {
-    handleProjectClick(event, app, domManipulator);
-  });
+    console.log("INIT: Setting up listeners");
+    const projectList = domManipulator.querySelector('#project-list');
+    console.log("INIT: projectList found:", projectList);
+
+    projectList.addEventListener('click', (event) => {
+        console.log("LISTENER: Click detected!");
+        handleProjectClick(event, app, domManipulator);
+    });
+    console.log("INIT: Listener added");
 }
 
 // This function runs EVERY TIME someone clicks
 export function handleProjectClick(event, app, domManipulator = document) {
   // Find the clicked project element
   const projectElement = event.target.closest('li'); // or '.project-item' if you add that class
-  
+
   // If a valid project was clicked
   if (projectElement) {
     // Get the project ID (you'll need to add this to your renderProjects)
-    const projectId = projectElement.dataset.projectId;
-    
+    const projectId = projectElement.dataset.id;
+    activeProjectId = projectId;
+
     // Get the project and its todos
     const project = app.findProject(projectId);
-    
+
     if (project) {
       const todos = project.todos;
       renderTasks(todos, domManipulator);
     }
   }
+}
+
+
+export function initAddProjectButton(app, domManipulator = document) {
+    const showFormBtn = domManipulator.querySelector('#show-project-form-btn');
+    const form = domManipulator.querySelector('#add-project-form');
+    const cancelBtn = domManipulator.querySelector('#cancel-project-btn');
+    const projectNameInput = domManipulator.querySelector('#project-name-input');
+
+    // Show form, hide button
+    showFormBtn.addEventListener('click', () => {
+        showFormBtn.style.display = 'none';
+        form.style.display = 'block';
+        projectNameInput.focus(); // Nice UX touch - cursor goes to input
+    });
+
+    // Hide form, show button
+    cancelBtn.addEventListener('click', () => {
+        form.style.display = 'none';
+        showFormBtn.style.display = 'block';
+        form.reset(); // Clear the input
+    });
+
+    // Handle form submission
+    form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent page reload
+
+        // TODO: Get the project name, create project, save, render, etc.
+        // get project name
+        const projectName = projectNameInput.value;
+        // create project
+        const newProject = app.addProject(projectName)
+        // save app
+        AppStorage.save(app)
+        // Re-render the projects list and tasks (tasks will be empty)
+        renderProjects(app.projects, domManipulator)
+        renderTasks(newProject.todos , domManipulator)
+        //  Hide the form, show the button again
+        form.style.display = 'none';
+        showFormBtn.style.display = 'block';
+        form.reset(); // Clear the input
+
+    });
+}
+
+export function initAddTaskButton(app, domManipulator = document) {
+  // Step 1: Get all the elements you need
+  const showFormBtn = domManipulator.querySelector('#show-task-form-btn');
+  const form = domManipulator.querySelector('#add-task-form');
+  const cancelBtn = domManipulator.querySelector('#cancel-task-btn');
+  
+  // Get all the input elements
+  const titleInput = domManipulator.querySelector('#task-title-input');
+  const descriptionInput = domManipulator.querySelector('#task-description-input');
+  const priorityInput = domManipulator.querySelector('#task-priority-input');
+  const dateInput = domManipulator.querySelector('#task-date-input');
+
+  // Step 2: Show form when button clicked
+   showFormBtn.addEventListener('click', () => {
+        showFormBtn.style.display = 'none';
+        form.style.display = 'block';
+        titleInput.focus(); // Nice UX touch - cursor goes to input
+    });
+
+
+  // Step 3: Hide form when cancel clicked
+    // Hide form, show button
+    cancelBtn.addEventListener('click', () => {
+        form.style.display = 'none';
+        showFormBtn.style.display = 'block';
+        form.reset(); // Clear the input
+    });
+
+  // Step 4: Handle form submission
+      form.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent page reload
+
+        // TODO: Get the project name, create project, save, render, etc.
+        // get task title, description, priority, due date
+        const taskTitle = titleInput.value;
+        const taskpriority = priorityInput.value;
+        const taskDescription= descriptionInput.value;
+        const taskDate = dateInput.value;
+        // create new task 
+        const task =  new ToDo(taskTitle,taskDescription, taskpriority, taskDate)
+        // add to project 
+        const activeProject = app.findProject(activeProjectId);
+        activeProject.addTodo(task);
+        // save app
+        AppStorage.save(app)
+        // Re-render the tasks list and tasks
+        renderTasks(activeProject.todos , domManipulator)
+        //  Hide the form, show the button again
+        form.style.display = 'none';
+        showFormBtn.style.display = 'block';
+        form.reset(); // Clear the input
+
+    });
 }

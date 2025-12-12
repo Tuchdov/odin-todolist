@@ -1,24 +1,43 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+"use strict";
+// import './style.css'
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+import { App } from './app.js'
+import { Project } from './project.js'
+import { ToDo } from './todo.js'
+import { AppStorage} from './storage.js'
+import { renderProjects, renderTasks, initEventListeners, handleProjectClick, initAddProjectButton , initAddTaskButton} from "./dom.js";
 
-setupCounter(document.querySelector('#counter'))
+
+
+
+const app = AppStorage.load();
+
+// if the app is emprty make some example projects, this is temp main version will start with empty todo
+if (app.projects.length === 0){
+    let work = app.addProject("Work");
+    let personal = app.addProject("Personal");
+
+    // add example todos
+    const todoReport = new ToDo("Send report", "Monthly report", "high", "2025-06-01T00:00:00Z");
+    const todoMail = new ToDo("Check Mail report", "Daily activity", "low", "2025-06-01T00:00:00Z");
+
+    work.addTodo(todoReport);
+    work.addTodo(todoMail);
+
+    const todo1 = new ToDo("Clean kitchen", "Deep clean", "medium", "2025-01-01T00:00:00Z");
+    const todo2 = new ToDo("Do laundry", "Wash clothes", "high", "2025-01-03T00:00:00Z");
+    const todo3 = new ToDo("Take out trash", "Bins to street", "low", "2025-01-02T00:00:00Z");
+
+    personal.addTodo(todo1);
+    personal.addTodo(todo2);
+    personal.addTodo(todo3);
+
+}
+
+// render the projects
+renderProjects(app.projects);
+
+// init event lesteners 
+initEventListeners(app);
+initAddProjectButton(app);
+initAddTaskButton(app);
