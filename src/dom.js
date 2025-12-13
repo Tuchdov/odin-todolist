@@ -25,7 +25,7 @@ export function renderProjects(projects, domManipulator = document) {
         const newListItem = domManipulator.createElement('li');
         newListItem.setAttribute("data-id", project.id);
         newListItem.textContent = `${project.name}`;
-               // add delete button for active project
+        // add delete button with trash icon for active project
         if (project.id === activeProjectId){
             const dltBtn = document.createElement('button');
             dltBtn.classList.add('delete-btn-proj');
