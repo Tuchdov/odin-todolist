@@ -25,6 +25,17 @@ export function renderProjects(projects, domManipulator = document) {
         const newListItem = domManipulator.createElement('li');
         newListItem.setAttribute("data-id", project.id);
         newListItem.textContent = `${project.name}`;
+               // add delete button for active project
+        if (project.id === activeProjectId){
+            const dltBtn = document.createElement('button');
+            dltBtn.classList.add('delete-btn-proj');
+
+            const dltIcon = document.createElement('i');
+            dltIcon.classList.add('fa', 'fa-trash');
+
+            dltBtn.appendChild(dltIcon)
+            newListItem.appendChild(dltBtn)
+        }
         projectList.appendChild(newListItem);
     }
 }
@@ -96,13 +107,14 @@ export function handleProjectClick(event, app, domManipulator = document) {
     // Get the project ID (you'll need to add this to your renderProjects)
     const projectId = projectElement.dataset.id;
     activeProjectId = projectId;
-
+    
     // Get the project and its todos
     const project = app.findProject(projectId);
 
     if (project) {
       const todos = project.todos;
       renderTasks(todos, domManipulator);
+      renderProjects(app.projects, domManipulator)
     }
   }
 }
