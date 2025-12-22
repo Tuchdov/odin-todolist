@@ -27,14 +27,24 @@ export function renderProjects(projects, domManipulator = document) {
         newListItem.textContent = `${project.name}`;
         // add delete button with trash icon for active project
         if (project.id === activeProjectId){
+
             const dltBtn = document.createElement('button');
             dltBtn.classList.add('delete-btn-proj');
-
             const dltIcon = document.createElement('i');
             dltIcon.classList.add('fa', 'fa-trash');
 
-            dltBtn.appendChild(dltIcon)
-            newListItem.appendChild(dltBtn)
+            dltBtn.appendChild(dltIcon);
+            newListItem.appendChild(dltBtn);
+
+            const editBtn = document.createElement('button');
+            editBtn.classList.add('edit-btn-proj');
+            const editICon = document.createElement('i');
+            editICon.classList.add('fa', 'fa-pencil');
+
+            editBtn.appendChild(editICon);
+            newListItem.appendChild(editBtn);
+
+
         }
         projectList.appendChild(newListItem);
     }
