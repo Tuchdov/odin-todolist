@@ -99,17 +99,36 @@ export function initEventListeners(app, domManipulator = document) {
 
 // This function runs EVERY TIME someone clicks
 export function handleProjectClick(event, app, domManipulator = document) {
-  // Find the clicked project element
-  const projectElement = event.target.closest('li'); // or '.project-item' if you add that class
+
+const projectDltBtn = event.target.closest('button')
+// Find the clicked project element
+const projectElement = event.target.closest('li'); // or '.project-item' if you add that class
+ // if delete was clicked get project id and remove tasks
+const projectId = projectElement.dataset.id;
+const project = app.findProject(projectId);
+
+
+
+  if (projectDltBtn) {
+         // Guard clause: if user cancels, exit early
+    if (project.todos.length > 0) {
+        const confirmed = confirm('This will delete ALL tasks, are you sure?');
+        if (!confirmed) {
+            return;  // bail out, do nothing
+        }
+    }
+    app.removeProject(projectId);
+    renderProjects(app.projects, domManipulator);
+    renderTasks([], domManipulator);
+    activeProjectId = null;
+    AppStorage.save(app)
+
+    return
+  }
 
   // If a valid project was clicked
-  if (projectElement) {
-    // Get the project ID (you'll need to add this to your renderProjects)
-    const projectId = projectElement.dataset.id;
+  else if (projectElement) {
     activeProjectId = projectId;
-    
-    // Get the project and its todos
-    const project = app.findProject(projectId);
 
     if (project) {
       const todos = project.todos;
