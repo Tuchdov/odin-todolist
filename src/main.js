@@ -5,7 +5,7 @@ import { App } from './app.js'
 import { Project } from './project.js'
 import { ToDo } from './todo.js'
 import { AppStorage} from './storage.js'
-import { renderProjects, renderTasks, initEventListeners, handleProjectClick, initAddProjectButton , initAddTaskButton} from "./dom.js";
+import { renderProjects, renderTasks, initEventListeners, handleProjectClick, initAddProjectButton , initAddTaskButton, initEditProjectButton} from "./dom.js";
 
 
 
@@ -41,3 +41,4 @@ renderProjects(app.projects);
 initEventListeners(app);
 initAddProjectButton(app);
 initAddTaskButton(app);
+initEditProjectButton(app)

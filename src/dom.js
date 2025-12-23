@@ -25,9 +25,10 @@ export function renderProjects(projects, domManipulator = document) {
         const newListItem = domManipulator.createElement('li');
         newListItem.setAttribute("data-id", project.id);
         newListItem.textContent = `${project.name}`;
-        // add delete button with trash icon for active project
+        
         if (project.id === activeProjectId){
 
+            // add delete button with trash icon for active project
             const dltBtn = document.createElement('button');
             dltBtn.classList.add('delete-btn-proj');
             const dltIcon = document.createElement('i');
@@ -36,11 +37,11 @@ export function renderProjects(projects, domManipulator = document) {
             dltBtn.appendChild(dltIcon);
             newListItem.appendChild(dltBtn);
 
+            // add edit button with pencil icon for active project
             const editBtn = document.createElement('button');
             editBtn.classList.add('edit-btn-proj');
             const editICon = document.createElement('i');
             editICon.classList.add('fa', 'fa-pencil');
-
             editBtn.appendChild(editICon);
             newListItem.appendChild(editBtn);
 
@@ -110,15 +111,16 @@ export function initEventListeners(app, domManipulator = document) {
 // This function runs EVERY TIME someone clicks
 export function handleProjectClick(event, app, domManipulator = document) {
 
-const projectDltBtn = event.target.closest('button')
-// Find the clicked project element
-const projectElement = event.target.closest('li'); // or '.project-item' if you add that class
- // if delete was clicked get project id and remove tasks
-const projectId = projectElement.dataset.id;
-const project = app.findProject(projectId);
+    const editBtn = event.target.closest('.edit-btn-proj')
+    const projectDltBtn = event.target.closest('delete-btn-proj')
+    // Find the clicked project element
+    const projectElement = event.target.closest('li'); // or '.project-item'
+    
+    const projectId = projectElement.dataset.id;
+    const project = app.findProject(projectId);
 
 
-
+  // if delete was clicked get project id and remove tasks
   if (projectDltBtn) {
          // Guard clause: if user cancels, exit early
     if (project.todos.length > 0) {
@@ -135,6 +137,23 @@ const project = app.findProject(projectId);
 
     return
   }
+  else if (editBtn) {
+    // hide edit button show form and focus curson on input
+    const form = domManipulator.querySelector('#edit-project-form');
+    // hide button and old name
+    editBtn.style.display = 'none';
+    projectElement.style.display = 'none';
+    form.style.display = 'block';
+
+
+    
+    // get project name
+    const projectNameInput = domManipulator.querySelector('#edit-project-name-input');
+        // Pre-fill with current name
+    projectNameInput.value = project.name;
+    return
+
+;}
 
   // If a valid project was clicked
   else if (projectElement) {
@@ -172,8 +191,6 @@ export function initAddProjectButton(app, domManipulator = document) {
     // Handle form submission
     form.addEventListener('submit', (event) => {
         event.preventDefault(); // Prevent page reload
-
-        // TODO: Get the project name, create project, save, render, etc.
         // get project name
         const projectName = projectNameInput.value;
         // create project
@@ -190,6 +207,41 @@ export function initAddProjectButton(app, domManipulator = document) {
 
     });
 }
+
+export function initEditProjectButton(app, domManipulator = document) {
+   
+    // get all element I need
+    const form = domManipulator.querySelector('#edit-project-form');
+    const projectNameInput = domManipulator.querySelector('#edit-project-name-input');
+    const editBtn = domManipulator.querySelector('.edit-btn-proj');
+    const cancelBtn = domManipulator.querySelector('#cancel-edit-project-btn');
+    cancelBtn.addEventListener('click', () => {
+        editBtn.style.display = 'block';
+        form.style.display = 'none';
+        renderProjects(app.projects);
+    })
+
+    form.addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent page reload
+     const project = app.findProject(activeProjectId)
+    // get project name
+    const projectName = projectNameInput.value;
+    project.name = projectName;
+    // save app
+    AppStorage.save(app)
+    // Re-render the projects list and tasks (tasks will be empty)
+    renderProjects(app.projects, domManipulator)
+    renderTasks(project.todos , domManipulator)
+    //  Hide the form, show the edit button again
+    // editBtn.style.display = 'block';
+    form.style.display = 'none';
+    
+
+  })
+
+
+    };
+
 
 export function initAddTaskButton(app, domManipulator = document) {
   // Step 1: Get all the elements you need
