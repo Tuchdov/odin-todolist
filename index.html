@@ -18,7 +18,16 @@
     <aside id="sidebar">
       <ul id="project-list">
       </ul>
+                  <!-- Hidden form -->
+                   <li>
+     <form id="edit-project-form" style="display: none;">
+     <input type="text" id="edit-project-name-input" placeholder="Project name..." required />
+     <button type="submit">Change</button>
+      <button type="button" id="cancel-edit-project-btn">Cancel</button>
+     </form>
       <button type="button" id="show-project-form-btn">add new project</button>
+      </li>
+
 
       <!-- Hidden form -->
       <form id="add-project-form" style="display: none;">
@@ -47,6 +56,13 @@
         <button type="submit">Add</button>
         <button type="button" id="cancel-task-btn">Cancel</button>
       </form>
+
+      <!-- Hidden form -->
+     <form id="edit-project-form" style="display: none;">
+     <input type="text" id="edit-project-name-input" placeholder="Project name..." required />
+     <button type="submit">Change</button>
+      <button type="button" id="cancel-edit-project-btn">Cancel</button>
+     </form>
       <!-- JS will inject tasks here -->
     </main>
   </div>
