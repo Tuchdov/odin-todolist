@@ -80,33 +80,44 @@ export function renderTasks(tasks, domManipulator = document) {
         newListItem.appendChild(titleSpan);
         newListItem.appendChild(dateSpan);
         newListItem.appendChild(prioritySpan);
+            // add delete button with trash icon for rendered task
+            const dltBtn = document.createElement('button');
+            dltBtn.classList.add('delete-btn-task');
+            const dltIcon = document.createElement('i');
+            dltIcon.classList.add('fa', 'fa-trash');
+
+            dltBtn.appendChild(dltIcon);
+            newListItem.appendChild(dltBtn);
+
+            // add edit button with pencil icon for active project
+            const editBtn = document.createElement('button');
+            editBtn.classList.add('edit-btn-task');
+            const editICon = document.createElement('i');
+            editICon.classList.add('fa', 'fa-pencil');
+
+            editBtn.appendChild(editICon);
+            newListItem.appendChild(editBtn);
 
         taskList.appendChild(newListItem);
     }
 
 }
 
-// // This function is called ONCE to set things up
-// export function initEventListeners(app, domManipulator = document) {
-//   const projectList = domManipulator.querySelector('#project-list');
-
-//   // Add ONE listener that will handle ALL clicks
-//   projectList.addEventListener('click', (event) => {
-//     handleProjectClick(event, app, domManipulator);
-//   });
-// }
-
 export function initEventListeners(app, domManipulator = document) {
-    console.log("INIT: Setting up listeners");
-    const projectList = domManipulator.querySelector('#project-list');
-    console.log("INIT: projectList found:", projectList);
 
-    projectList.addEventListener('click', (event) => {
-        console.log("LISTENER: Click detected!");
-        handleProjectClick(event, app, domManipulator);
-    });
-    console.log("INIT: Listener added");
+  const projectList = domManipulator.querySelector('#project-list');
+
+  // Add ONE listener that will handle ALL clicks
+  projectList.addEventListener('click', (event) => {
+    handleProjectClick(event, app, domManipulator);
+  });
+
+  const taskList = domManipulator.querySelector('#task-list');
+  taskList.addEventListener('click',(event)  => {
+    handleTaskClick(event,app,domManipulator);
+  });
 }
+
 
 // This function runs EVERY TIME someone clicks
 export function handleProjectClick(event, app, domManipulator = document) {
@@ -167,7 +178,26 @@ export function handleProjectClick(event, app, domManipulator = document) {
   }
 }
 
+export function handleTaskClick(event, app, domManipulator = document) {
+    const editBtn = event.target.closest('.edit-btn-task')
+    const taskDltBtn = event.target.closest('.delete-btn-task')
+    // Find the clicked task element and the task id
+    const taskElement = event.target.closest('li');
+    const taskId = taskElement.dataset.id;
+    const project = app.findProject(activeProjectId);
 
+
+
+      if (taskDltBtn) {
+        project.removeTodo(taskId); 
+        // renderProjects(app.projects, domManipulator);
+        renderTasks(project.todos, domManipulator);
+        AppStorage.save(app);
+        return
+  }
+
+
+}
 export function initAddProjectButton(app, domManipulator = document) {
     const showFormBtn = domManipulator.querySelector('#show-project-form-btn');
     const form = domManipulator.querySelector('#add-project-form');
@@ -223,7 +253,7 @@ export function initEditProjectButton(app, domManipulator = document) {
 
     form.addEventListener('submit', (event) => {
     event.preventDefault(); // Prevent page reload
-     const project = app.findProject(activeProjectId)
+    const project = app.findProject(activeProjectId)
     // get project name
     const projectName = projectNameInput.value;
     project.name = projectName;
