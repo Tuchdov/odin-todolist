@@ -112,7 +112,7 @@ export function initEventListeners(app, domManipulator = document) {
 export function handleProjectClick(event, app, domManipulator = document) {
 
     const editBtn = event.target.closest('.edit-btn-proj')
-    const projectDltBtn = event.target.closest('delete-btn-proj')
+    const projectDltBtn = event.target.closest('.delete-btn-proj')
     // Find the clicked project element
     const projectElement = event.target.closest('li'); // or '.project-item'
     
@@ -216,7 +216,7 @@ export function initEditProjectButton(app, domManipulator = document) {
     const editBtn = domManipulator.querySelector('.edit-btn-proj');
     const cancelBtn = domManipulator.querySelector('#cancel-edit-project-btn');
     cancelBtn.addEventListener('click', () => {
-        editBtn.style.display = 'block';
+        // editBtn.style.display = 'block';
         form.style.display = 'none';
         renderProjects(app.projects);
     })
