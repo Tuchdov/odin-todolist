@@ -30,12 +30,17 @@ moveTodo(todoId, fromProjectID, toProjectID){
   if (!originProject || !destinationProject) {
     return;
 }
+// if the project are the same do nothing
+else if (fromProjectID === toProjectID){
+  return;
+}
 
   const task = originProject.findTodo(todoId);
 // if the task is not found do nothing
 if (!task) {
   return;
 }
+
 
   destinationProject.addTodo(task);
   originProject.removeTodo(todoId);
