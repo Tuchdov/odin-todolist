@@ -9,6 +9,7 @@ import { ToDo } from "./todo.js";
 import { Project } from "./project.js";
 // Track which project is currently active
 let activeProjectId = null;
+let activeTaskId = null;
 
 export function renderProjects(projects, domManipulator = document) {
     // Get the <ul id="project-list"> element
@@ -126,8 +127,10 @@ export function handleProjectClick(event, app, domManipulator = document) {
     const projectDltBtn = event.target.closest('.delete-btn-proj')
     // Find the clicked project element
     const projectElement = event.target.closest('li'); // or '.project-item'
-    
+        // Find the clicked task element and the task id
+
     const projectId = projectElement.dataset.id;
+    
     const project = app.findProject(projectId);
 
 
@@ -184,17 +187,38 @@ export function handleTaskClick(event, app, domManipulator = document) {
     // Find the clicked task element and the task id
     const taskElement = event.target.closest('li');
     const taskId = taskElement.dataset.id;
+    // activeTaskId = taskId;
     const project = app.findProject(activeProjectId);
+    const task = project.findTodo(taskId)
 
-
-
-      if (taskDltBtn) {
+    if (taskDltBtn) {
         project.removeTodo(taskId); 
         // renderProjects(app.projects, domManipulator);
         renderTasks(project.todos, domManipulator);
         AppStorage.save(app);
         return
-  }
+    }
+    else if (editBtn) {
+        // show the modal and use the form
+        const dialog = domManipulator.querySelector('#edit-task-dialog');
+        const form = domManipulator.querySelector('#edit-task-form');
+        activeTaskId = taskId;
+        
+        // open dialog
+        dialog.showModal()
+
+        // get form fields
+        const taskNameInput = domManipulator.querySelector('#task-title-edit-input');
+        const taskDescriptionInput = domManipulator.querySelector('#task-description-edit-input');
+        const taskPriorityInput = domManipulator.querySelector('#task-priority-edit-input');
+        const taskDateInput = domManipulator.querySelector('#task-date-edit-input');
+        // Pre-fill with current name
+        taskNameInput.value = task.title;
+        taskDescriptionInput.value = task.description;
+        taskPriorityInput.value = task.priority;
+        taskDateInput.value = task.dueDate.toISOString().split('T')[0];
+        return
+    }
 
 
 }
@@ -271,6 +295,52 @@ export function initEditProjectButton(app, domManipulator = document) {
 
 
     };
+
+export function initEditTaskButton(app, domManipulator = document){
+    // find the task
+
+    // update task properties
+
+
+    // if cancel
+    const cancelBtn = domManipulator.querySelector('#cancel-task-edit-btn');
+
+    // if submit
+    const dialog = domManipulator.querySelector('#edit-task-dialog');
+    const form = domManipulator.querySelector('#edit-task-form');
+
+    cancelBtn.addEventListener('click', () => {
+        
+        dialog.close()
+    })
+
+    
+      form.addEventListener('submit', (event) => {
+        const project = app.findProject(activeProjectId);
+        const task = project.findTodo(activeTaskId);
+        
+        // get form fields
+        const taskNameInput = domManipulator.querySelector('#task-title-edit-input');
+        const taskDescriptionInput = domManipulator.querySelector('#task-description-edit-input');
+        const taskPriorityInput = domManipulator.querySelector('#task-priority-edit-input');
+        const taskDateInput = domManipulator.querySelector('#task-date-edit-input');
+        event.preventDefault(); // Prevent page reload
+
+
+        // chqange task title, description, priority, due date
+         task.title = taskNameInput.value;
+         task.priority = taskPriorityInput.value;
+         task.description= taskDescriptionInput.value; 
+         task.dueDate = new Date (taskDateInput.value);
+
+        // save app
+        AppStorage.save(app)
+        // Re-render the tasks list and tasks
+        renderTasks(project.todos , domManipulator)
+        //  Hide the form, show the button again
+        form.reset(); // Clear the input
+        dialog.close()
+})};
 
 
 export function initAddTaskButton(app, domManipulator = document) {
