@@ -395,12 +395,13 @@ export function initMoveTaskButton(app, domManipulator = document) {
         const task = project.findTodo(activeTaskId);
         //value that was chosen 
         const selectProject = domManipulator.querySelector('#move-task-select');
-        
+        const destinationProject = app.findProject(selectProject.value);
 
-        app.moveTodo(task.id, project.id, selectProject.value);
+        app.moveTodo(task.id, project.id, destinationProject.id);
         AppStorage.save(app);
         renderTasks(project.todos , domManipulator);
         dialog.close()
+        showToast(`Task ${task.title} moved to ${destinationProject.name}`)
 
      })
 
@@ -462,3 +463,9 @@ export function initAddTaskButton(app, domManipulator = document) {
     });
 }
 
+export function showToast(message) {
+    const toast = document.querySelector('#toast');
+    toast.textContent = message;
+    toast.style.display ='block';
+    setTimeout( () => {toast.style.display ='none'}, 4000);
+}
