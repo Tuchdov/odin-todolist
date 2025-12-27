@@ -23,10 +23,10 @@ removeProject(projectId){
 findProject(projectId){
   return this.projects.find((project) => project.id === projectId);
 }
-moveTodo(todoId, fromProjectName, toProjectName){
-  const originProject = this.findProject(fromProjectName);
-  const destinationProject = this.findProject(toProjectName);
-  // if one of the projects is not do nothing
+moveTodo(todoId, fromProjectID, toProjectID){
+  const originProject = this.findProject(fromProjectID);
+  const destinationProject = this.findProject(toProjectID);
+  // if one of the projects does not exist, do nothing
   if (!originProject || !destinationProject) {
     return;
 }

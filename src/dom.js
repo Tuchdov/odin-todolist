@@ -47,6 +47,7 @@ export function renderProjects(projects, domManipulator = document) {
             newListItem.appendChild(editBtn);
 
 
+
         }
         projectList.appendChild(newListItem);
     }
@@ -98,6 +99,15 @@ export function renderTasks(tasks, domManipulator = document) {
 
             editBtn.appendChild(editICon);
             newListItem.appendChild(editBtn);
+
+            // add move button with two arrows pointing to a different direction icon
+            const moveBtn = document.createElement('button');
+            moveBtn.classList.add('move-btn-task');
+            const moveIcon = document.createElement('i');
+            moveIcon.classList.add('fa', 'fa-right-left');
+
+            moveBtn.appendChild(moveIcon);
+            newListItem.appendChild(moveBtn);
 
         taskList.appendChild(newListItem);
     }
@@ -184,6 +194,7 @@ export function handleProjectClick(event, app, domManipulator = document) {
 export function handleTaskClick(event, app, domManipulator = document) {
     const editBtn = event.target.closest('.edit-btn-task')
     const taskDltBtn = event.target.closest('.delete-btn-task')
+    const moveBtn = event.target.closest('.move-btn-task')
     // Find the clicked task element and the task id
     const taskElement = event.target.closest('li');
     const taskId = taskElement.dataset.id;
@@ -218,6 +229,29 @@ export function handleTaskClick(event, app, domManipulator = document) {
         taskPriorityInput.value = task.priority;
         taskDateInput.value = task.dueDate.toISOString().split('T')[0];
         return
+    }
+    else if (moveBtn){
+         // show the modal and use the form
+        const dialog = domManipulator.querySelector('#move-task-dialog');
+        const form = domManipulator.querySelector('#move-task-form');
+        activeTaskId = taskId;
+
+        // get the select element, clear it and then repopulate
+        const selectProject = domManipulator.querySelector('#move-task-select')
+        selectProject.innerHTML = '';
+
+        // loop through app projects for each project create an <options> set its value to the id, set the text content to the name
+        app.projects.forEach((projecto) => {
+            const option= document.createElement('option');
+            option.value = projecto.id;
+            option.textContent = projecto.name;
+            selectProject.appendChild(option);
+        })
+         // open dialog
+        dialog.showModal();
+
+
+
     }
 
 
@@ -342,6 +376,36 @@ export function initEditTaskButton(app, domManipulator = document){
         dialog.close()
 })};
 
+export function initMoveTaskButton(app, domManipulator = document) {
+    const dialog = domManipulator.querySelector('#move-task-dialog');
+    const form = domManipulator.querySelector('#move-task-form');
+
+      // if cancel
+    const cancelBtn = domManipulator.querySelector('#task-move-cancel-btn');
+    cancelBtn.addEventListener('click', () => {
+    
+    dialog.close();
+    });
+    // Form submit - move the task, save, re-render, close dialog
+     form.addEventListener('submit', (event) => {
+
+        event.preventDefault(); // Prevent page reload
+
+        const project = app.findProject(activeProjectId);
+        const task = project.findTodo(activeTaskId);
+        //value that was chosen 
+        const selectProject = domManipulator.querySelector('#move-task-select');
+        
+
+        app.moveTodo(task.id, project.id, selectProject.value);
+        AppStorage.save(app);
+        renderTasks(project.todos , domManipulator);
+        dialog.close()
+
+     })
+
+
+}
 
 export function initAddTaskButton(app, domManipulator = document) {
   // Step 1: Get all the elements you need
@@ -397,3 +461,4 @@ export function initAddTaskButton(app, domManipulator = document) {
 
     });
 }
+

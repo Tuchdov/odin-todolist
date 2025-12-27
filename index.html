@@ -45,6 +45,7 @@
       <!-- Hidden form -->
       <dialog id="edit-task-dialog">
         <form id="edit-task-form" style="display: block;">
+          <h2>Edit your task</h2>
           <input type="text" id="task-title-edit-input" placeholder="Task title..." required />
           <input type="text" id="task-description-edit-input" placeholder="You can add more details here." />
           <select id="task-priority-edit-input">
@@ -59,6 +60,17 @@
 
         </form>
       </dialog>
+      <!-- Hidden form -->
+       <dialog id="move-task-dialog">
+        <form id ="move-task-form">
+          <h2>Move task to</h2>
+          <select id="move-task-select"></select>
+          <!-- options to select will go here -->
+           <button type="submit">Move</button>
+           <button type="button" id="task-move-cancel-btn">Cancel</button>
+        </form>
+       </dialog>
+
       <button id="show-task-form-btn">add task</button>
       <!-- Hidden form -->
       <form id="add-task-form" style="display: none;">

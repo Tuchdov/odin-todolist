@@ -43,3 +43,4 @@ dom.initAddProjectButton(app);
 dom.initAddTaskButton(app);
 dom.initEditProjectButton(app);
 dom.initEditTaskButton(app);
+dom.initMoveTaskButton(app);
