@@ -28,6 +28,9 @@ export function renderProjects(projects, domManipulator = document) {
         newListItem.textContent = `${project.name}`;
         
         if (project.id === activeProjectId){
+            // Create button container
+            const buttonContainer = document.createElement('div');
+            buttonContainer.classList.add('project-button-group');
 
             // add delete button with trash icon for active project
             const dltBtn = document.createElement('button');
@@ -36,7 +39,7 @@ export function renderProjects(projects, domManipulator = document) {
             dltIcon.classList.add('fa', 'fa-trash');
 
             dltBtn.appendChild(dltIcon);
-            newListItem.appendChild(dltBtn);
+            buttonContainer.appendChild(dltBtn);
 
             // add edit button with pencil icon for active project
             const editBtn = document.createElement('button');
@@ -44,10 +47,9 @@ export function renderProjects(projects, domManipulator = document) {
             const editICon = document.createElement('i');
             editICon.classList.add('fa', 'fa-pencil');
             editBtn.appendChild(editICon);
-            newListItem.appendChild(editBtn);
+            buttonContainer.appendChild(editBtn);
 
-
-
+            newListItem.appendChild(buttonContainer);
         }
         projectList.appendChild(newListItem);
     }
@@ -73,11 +75,10 @@ export function renderTasks(tasks, domManipulator = document) {
         const dateSpan = domManipulator.createElement('span');
         const prioritySpan = domManipulator.createElement('span');
 
-
-
         titleSpan.textContent = task.title;
         dateSpan.textContent = task.dueDate.toLocaleDateString();
         prioritySpan.textContent = task.priority;
+        prioritySpan.classList.add('priority-badge', `priority-${task.priority}`);
 
         newListItem.appendChild(titleSpan);
         newListItem.appendChild(dateSpan);

@@ -1,5 +1,5 @@
 "use strict";
-// import './style.css'
+import './style.css'
 
 import { App } from './app.js'
 import { Project } from './project.js'

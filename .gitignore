@@ -29,3 +29,6 @@ pnpm-debug.log*
 pnpm-error.log*
 
 .vscode/settings.json
+
+# playwright mcp work
+.playwright-mcp/
