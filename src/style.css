@@ -296,6 +296,10 @@ footer {
   color: var(--text-primary);
 }
 
+.social-link.linkedin:hover {
+  color: #0A66C2;
+}
+
 /* ===== Buttons ===== */
 button {
   font-family: var(--font-sans);

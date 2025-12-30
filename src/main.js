@@ -14,19 +14,19 @@ const app = AppStorage.load();
 
 // if the app is emprty make some example projects, this is temp main version will start with empty todo
 if (app.projects.length === 0){
-    let work = app.addProject("Work");
-    let personal = app.addProject("Personal");
+    let work = app.addProject("Forest Duties");
+    let personal = app.addProject("Den Life");
 
     // add example todos
-    const todoReport = new ToDo("Send report", "Monthly report", "high", "2025-06-01T00:00:00Z");
-    const todoMail = new ToDo("Check Mail report", "Daily activity", "low", "2025-06-01T00:00:00Z");
+    const todoReport = new ToDo("Mark territory", "Check borders and refresh scent markers", "high", "2025-06-01T00:00:00Z");
+    const todoMail = new ToDo("Scout fishing spots", "Find best salmon runs for season", "low", "2025-06-01T00:00:00Z");
 
     work.addTodo(todoReport);
     work.addTodo(todoMail);
 
-    const todo1 = new ToDo("Clean kitchen", "Deep clean", "medium", "2025-01-01T00:00:00Z");
-    const todo2 = new ToDo("Do laundry", "Wash clothes", "high", "2025-01-03T00:00:00Z");
-    const todo3 = new ToDo("Take out trash", "Bins to street", "low", "2025-01-02T00:00:00Z");
+    const todo1 = new ToDo("Organize den", "Arrange moss and leaves for comfort", "medium", "2025-01-01T00:00:00Z");
+    const todo2 = new ToDo("Forage for berries", "Stock up before hibernation", "high", "2025-01-03T00:00:00Z");
+    const todo3 = new ToDo("Sharpen claws", "Find good tree for scratching", "low", "2025-01-02T00:00:00Z");
 
     personal.addTodo(todo1);
     personal.addTodo(todo2);
