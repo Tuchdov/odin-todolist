@@ -1,18 +1,20 @@
 # The Bear's To-Do List - Design Style Guide
 
-**Version:** 1.0
-**Last Updated:** 2025-12-29
-**Design Direction:** Modern & Minimal with Bear-Themed Warm Aesthetics
+**Version:** 1.0 **Last Updated:** 2025-12-29 **Design Direction:** Modern &
+Minimal with Bear-Themed Warm Aesthetics
 
 ## Design Philosophy
 
-This style guide defines the visual language for The Bear's To-Do List, combining:
+This style guide defines the visual language for The Bear's To-Do List,
+combining:
+
 - **Linear's** sleek interactions and subtle depth
 - **Todoist's** clear priority system and task hierarchy
 - **Notion's** excellent typography and content-focused spacing
 - **Bear-themed warmth** through earthy, natural color palette
 
 ### Core Principles
+
 1. **Warm & Inviting:** Use earthy tones that feel natural and comfortable
 2. **Clear Hierarchy:** Information should be instantly scannable
 3. **Subtle Depth:** Minimal shadows and layers to create spatial relationships
@@ -32,7 +34,7 @@ This style guide defines the visual language for The Bear's To-Do List, combinin
 --color-primary-200: #eaddd7;
 --color-primary-300: #e0cec7;
 --color-primary-400: #d2bab0;
---color-primary-500: #bfa094;  /* Main brand color */
+--color-primary-500: #bfa094; /* Main brand color */
 --color-primary-600: #a18072;
 --color-primary-700: #836655;
 --color-primary-800: #6d5347;
@@ -44,7 +46,7 @@ This style guide defines the visual language for The Bear's To-Do List, combinin
 --color-accent-200: #fde68a;
 --color-accent-300: #fcd34d;
 --color-accent-400: #fbbf24;
---color-accent-500: #f59e0b;  /* Accent for highlights */
+--color-accent-500: #f59e0b; /* Accent for highlights */
 --color-accent-600: #d97706;
 --color-accent-700: #b45309;
 --color-accent-800: #92400e;
@@ -132,12 +134,12 @@ This style guide defines the visual language for The Bear's To-Do List, combinin
 ### Text Colors
 
 ```css
---text-primary: #1c1917;      /* Body text, headings */
---text-secondary: #57534e;    /* Supporting text */
---text-tertiary: #a8a29e;     /* Placeholders, disabled */
---text-inverse: #ffffff;      /* On dark backgrounds */
---text-link: #a18072;         /* Links */
---text-link-hover: #836655;   /* Link hover */
+--text-primary: #1c1917; /* Body text, headings */
+--text-secondary: #57534e; /* Supporting text */
+--text-tertiary: #a8a29e; /* Placeholders, disabled */
+--text-inverse: #ffffff; /* On dark backgrounds */
+--text-link: #a18072; /* Links */
+--text-link-hover: #836655; /* Link hover */
 ```
 
 ### Border Colors
@@ -146,7 +148,7 @@ This style guide defines the visual language for The Bear's To-Do List, combinin
 --border-light: #e7e5e4;
 --border-medium: #d6d3d1;
 --border-dark: #a8a29e;
---border-focus: #bfa094;      /* Primary-500 */
+--border-focus: #bfa094; /* Primary-500 */
 ```
 
 ---
@@ -156,56 +158,58 @@ This style guide defines the visual language for The Bear's To-Do List, combinin
 ### Font Families
 
 ```css
---font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
---font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+--font-sans:
+  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", sans-serif;
+--font-mono: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
 ```
 
-**Primary Font:** Inter (via Bunny Fonts - privacy-friendly CDN)
-**CDN Link:** `https://fonts.bunny.net/css?family=inter:400,500,600,700`
-**Fallback:** System font stack for performance
+**Primary Font:** Inter (via Bunny Fonts - privacy-friendly CDN) **CDN Link:**
+`https://fonts.bunny.net/css?family=inter:400,500,600,700` **Fallback:** System
+font stack for performance
 
 ### Type Scale
 
 ```css
 /* Headings */
---text-h1: 32px;      /* Page titles */
---text-h2: 24px;      /* Section headers */
---text-h3: 20px;      /* Subsection headers */
---text-h4: 18px;      /* Card titles */
+--text-h1: 32px; /* Page titles */
+--text-h2: 24px; /* Section headers */
+--text-h3: 20px; /* Subsection headers */
+--text-h4: 18px; /* Card titles */
 
 /* Body */
---text-base: 15px;    /* Default body text */
---text-sm: 13px;      /* Secondary text, metadata */
---text-xs: 11px;      /* Captions, timestamps */
+--text-base: 15px; /* Default body text */
+--text-sm: 13px; /* Secondary text, metadata */
+--text-xs: 11px; /* Captions, timestamps */
 
 /* Large */
---text-lg: 17px;      /* Emphasized content */
---text-xl: 20px;      /* Hero text */
+--text-lg: 17px; /* Emphasized content */
+--text-xl: 20px; /* Hero text */
 ```
 
 ### Font Weights
 
 ```css
---font-normal: 400;    /* Regular body text */
---font-medium: 500;    /* Subtle emphasis */
---font-semibold: 600;  /* Headings, buttons */
---font-bold: 700;      /* Strong emphasis (sparingly) */
+--font-normal: 400; /* Regular body text */
+--font-medium: 500; /* Subtle emphasis */
+--font-semibold: 600; /* Headings, buttons */
+--font-bold: 700; /* Strong emphasis (sparingly) */
 ```
 
 ### Line Heights
 
 ```css
---leading-tight: 1.25;     /* Headings */
---leading-normal: 1.5;     /* Body text */
---leading-relaxed: 1.75;   /* Long-form content */
+--leading-tight: 1.25; /* Headings */
+--leading-normal: 1.5; /* Body text */
+--leading-relaxed: 1.75; /* Long-form content */
 ```
 
 ### Letter Spacing
 
 ```css
---tracking-tight: -0.02em;  /* Large headings */
---tracking-normal: 0;       /* Default */
---tracking-wide: 0.02em;    /* Uppercase labels */
+--tracking-tight: -0.02em; /* Large headings */
+--tracking-normal: 0; /* Default */
+--tracking-wide: 0.02em; /* Uppercase labels */
 ```
 
 ---
@@ -215,17 +219,17 @@ This style guide defines the visual language for The Bear's To-Do List, combinin
 **Base Unit:** 8px (0.5rem)
 
 ```css
---space-1: 4px;      /* 0.25rem - Tight spacing */
---space-2: 8px;      /* 0.5rem - Base unit */
---space-3: 12px;     /* 0.75rem - Small gaps */
---space-4: 16px;     /* 1rem - Default spacing */
---space-5: 20px;     /* 1.25rem - Medium spacing */
---space-6: 24px;     /* 1.5rem - Large spacing */
---space-8: 32px;     /* 2rem - Section spacing */
---space-10: 40px;    /* 2.5rem - Large sections */
---space-12: 48px;    /* 3rem - Page margins */
---space-16: 64px;    /* 4rem - Major sections */
---space-20: 80px;    /* 5rem - Hero sections */
+--space-1: 4px; /* 0.25rem - Tight spacing */
+--space-2: 8px; /* 0.5rem - Base unit */
+--space-3: 12px; /* 0.75rem - Small gaps */
+--space-4: 16px; /* 1rem - Default spacing */
+--space-5: 20px; /* 1.25rem - Medium spacing */
+--space-6: 24px; /* 1.5rem - Large spacing */
+--space-8: 32px; /* 2rem - Section spacing */
+--space-10: 40px; /* 2.5rem - Large sections */
+--space-12: 48px; /* 3rem - Page margins */
+--space-16: 64px; /* 4rem - Major sections */
+--space-20: 80px; /* 5rem - Hero sections */
 ```
 
 ### Usage Guidelines
@@ -240,10 +244,10 @@ This style guide defines the visual language for The Bear's To-Do List, combinin
 ## Border Radius
 
 ```css
---radius-sm: 6px;      /* Input fields, small buttons */
---radius-md: 8px;      /* Buttons, badges */
---radius-lg: 12px;     /* Cards, modals */
---radius-xl: 16px;     /* Large containers */
+--radius-sm: 6px; /* Input fields, small buttons */
+--radius-md: 8px; /* Buttons, badges */
+--radius-lg: 12px; /* Cards, modals */
+--radius-xl: 16px; /* Large containers */
 --radius-full: 9999px; /* Pills, circular elements */
 ```
 
@@ -256,10 +260,14 @@ Subtle shadows inspired by Linear's depth system.
 ```css
 /* Elevation Layers */
 --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
---shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
---shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
---shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
---shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+--shadow-base:
+  0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+--shadow-md:
+  0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+--shadow-lg:
+  0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+--shadow-xl:
+  0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
 
 /* Focus Shadow */
 --shadow-focus: 0 0 0 3px rgba(191, 160, 148, 0.3); /* Primary-500 at 30% */
@@ -280,6 +288,7 @@ Subtle shadows inspired by Linear's depth system.
 ### Buttons
 
 #### Primary Button
+
 ```css
 background: var(--color-primary-500);
 color: var(--color-neutral-0);
@@ -302,6 +311,7 @@ box-shadow: var(--shadow-focus);
 ```
 
 #### Secondary Button
+
 ```css
 background: var(--color-neutral-100);
 color: var(--text-primary);
@@ -316,6 +326,7 @@ border-color: var(--border-medium);
 ```
 
 #### Icon Button
+
 ```css
 width: 36px;
 height: 36px;
@@ -451,10 +462,10 @@ letter-spacing: var(--tracking-wide);
 ### Responsive Breakpoints
 
 ```css
---breakpoint-sm: 640px;   /* Mobile landscape */
---breakpoint-md: 768px;   /* Tablet portrait */
---breakpoint-lg: 1024px;  /* Desktop */
---breakpoint-xl: 1280px;  /* Large desktop */
+--breakpoint-sm: 640px; /* Mobile landscape */
+--breakpoint-md: 768px; /* Tablet portrait */
+--breakpoint-lg: 1024px; /* Desktop */
+--breakpoint-xl: 1280px; /* Large desktop */
 ```
 
 ### Container Widths
@@ -482,10 +493,10 @@ letter-spacing: var(--tracking-wide);
 ### Duration
 
 ```css
---duration-fast: 120ms;     /* Quick hover states */
---duration-base: 200ms;     /* Default transitions */
---duration-slow: 300ms;     /* Complex animations */
---duration-slower: 500ms;   /* Page transitions */
+--duration-fast: 120ms; /* Quick hover states */
+--duration-base: 200ms; /* Default transitions */
+--duration-slow: 300ms; /* Complex animations */
+--duration-slower: 500ms; /* Page transitions */
 ```
 
 ### Common Transitions
@@ -495,9 +506,10 @@ letter-spacing: var(--tracking-wide);
 transition: all 200ms var(--ease-in-out);
 
 /* Specific property transitions (preferred) */
-transition: background-color 150ms ease-in-out,
-            border-color 150ms ease-in-out,
-            transform 150ms ease-in-out;
+transition:
+  background-color 150ms ease-in-out,
+  border-color 150ms ease-in-out,
+  transform 150ms ease-in-out;
 ```
 
 ### Micro-interactions
@@ -513,9 +525,9 @@ transition: background-color 150ms ease-in-out,
 
 ### Icon System
 
-**Source:** Font Awesome 6.0.0 (already integrated)
-**Style:** Regular weight for consistency
-**Size Scale:**
+**Source:** Font Awesome 6.0.0 (already integrated) **Style:** Regular weight
+for consistency **Size Scale:**
+
 ```css
 --icon-xs: 12px;
 --icon-sm: 14px;
@@ -556,6 +568,7 @@ transition: background-color 150ms ease-in-out,
 ### Focus States
 
 All interactive elements must have visible focus states:
+
 ```css
 outline: none; /* Remove default */
 box-shadow: var(--shadow-focus); /* Custom focus ring */
@@ -585,7 +598,8 @@ box-shadow: var(--shadow-focus); /* Custom focus ring */
 
 ## Dark Mode (Future)
 
-*Reserved for Phase 2. Will include:*
+_Reserved for Phase 2. Will include:_
+
 - Dark background palette
 - Adjusted contrast ratios
 - Inverted shadow system
@@ -614,5 +628,4 @@ box-shadow: var(--shadow-focus); /* Custom focus ring */
 - **Icons:** Font Awesome 6.0.0
 - **Inspiration:** Linear, Todoist, Notion
 
-**Design System Version:** 1.0
-**Maintained by:** The Bear's To-Do List Team
+**Design System Version:** 1.0 **Maintained by:** The Bear's To-Do List Team

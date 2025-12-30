@@ -1,8 +1,8 @@
 import {
   assertEquals,
   assertExists,
-  assertStrictEquals,
   assertNotEquals,
+  assertStrictEquals,
 } from "https://deno.land/std/testing/asserts.ts";
 
 import { App } from "./app.js";
@@ -27,7 +27,12 @@ Deno.test("App: create projects, add todo to Work, move it to Personal (same ins
     app.addProject("Work");
     app.addProject("Personal");
 
-    const todo = new ToDo("Send report", "Monthly report", 1, "2025-06-01T00:00:00Z");
+    const todo = new ToDo(
+      "Send report",
+      "Monthly report",
+      1,
+      "2025-06-01T00:00:00Z",
+    );
 
     const work = app.findProject("Work");
     // ensure the project exists
@@ -40,34 +45,41 @@ Deno.test("App: create projects, add todo to Work, move it to Personal (same ins
     assertStrictEquals(work.todos[0], todo);
   });
 
-  await t.step("move the todo from Work to Personal and verify same instance moved", () => {
-    const app = new App();
-    app.addProject("Work");
-    app.addProject("Personal");
+  await t.step(
+    "move the todo from Work to Personal and verify same instance moved",
+    () => {
+      const app = new App();
+      app.addProject("Work");
+      app.addProject("Personal");
 
-    const todo = new ToDo("Send report", "Monthly report", 1, "2025-06-01T00:00:00Z");
+      const todo = new ToDo(
+        "Send report",
+        "Monthly report",
+        1,
+        "2025-06-01T00:00:00Z",
+      );
 
-    const work = app.findProject("Work");
-    const personal = app.findProject("Personal");
-    assertExists(work);
-    assertExists(personal);
+      const work = app.findProject("Work");
+      const personal = app.findProject("Personal");
+      assertExists(work);
+      assertExists(personal);
 
-    work.addTodo(todo);
-    assertEquals(work.todos.length, 1);
-    assertEquals(personal.todos.length, 0);
+      work.addTodo(todo);
+      assertEquals(work.todos.length, 1);
+      assertEquals(personal.todos.length, 0);
 
-    // Perform the move using the App API
-    app.moveTodo(todo.id, "Work", "Personal");
+      // Perform the move using the App API
+      app.moveTodo(todo.id, "Work", "Personal");
 
-    // Now Work should no longer contain the todo
-    assertEquals(work.todos.length, 0);
+      // Now Work should no longer contain the todo
+      assertEquals(work.todos.length, 0);
 
-    // Personal should contain the same instance (identity check)
-    assertEquals(personal.todos.length, 1);
-    assertStrictEquals(personal.todos[0], todo);
+      // Personal should contain the same instance (identity check)
+      assertEquals(personal.todos.length, 1);
+      assertStrictEquals(personal.todos[0], todo);
 
-
-    // Ensure it's not a different object with same values
-   // assertNotEquals(personal.todos[0], new ToDo("Send report", "Monthly report", 1, "2025-06-01T00:00:00Z"));
-  });
+      // Ensure it's not a different object with same values
+      // assertNotEquals(personal.todos[0], new ToDo("Send report", "Monthly report", 1, "2025-06-01T00:00:00Z"));
+    },
+  );
 });

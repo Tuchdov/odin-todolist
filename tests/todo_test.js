@@ -1,10 +1,9 @@
 // toDo_test.js
 import {
   assertEquals,
-  assertStrictEquals,
   assertInstanceOf,
-  assertNotStrictEquals
-  
+  assertNotStrictEquals,
+  assertStrictEquals,
 } from "https://deno.land/std/testing/asserts.ts";
 
 import { ToDo } from "./todo.js"; // adjust extension/path if needed
@@ -18,7 +17,6 @@ const dueDateObj = new Date(dueDateStr);
 
 const expectedDate = new Date(isoString);
 
-
 // ---------- Constructor ----------
 Deno.test("ToDo class - constructor - initializes properties correctly when given a Date object", () => {
   const todo = new ToDo(title, description, priority, dueDateObj);
@@ -31,12 +29,11 @@ Deno.test("ToDo class - constructor - initializes properties correctly when give
   assertEquals(todo.dueDate.getTime(), expectedDate.getTime());
 });
 
-
-
 // ---------- toString ----------
 Deno.test("ToDo class - toString - returns a formatted string", () => {
   const todo = new ToDo(title, description, priority, dueDateObj);
-  const expected = `${title} (${priority}) – due ${todo.dueDate.toLocaleDateString()}`;
+  const expected =
+    `${title} (${priority}) – due ${todo.dueDate.toLocaleDateString()}`;
   assertEquals(todo.toString(), expected);
 });
 
@@ -102,15 +99,15 @@ Deno.test("ToDo class - toggleComplete - toggles isCompleted from true to false"
   assertEquals(todo.isCompleted, false);
 });
 
-// -- check ID 
+// -- check ID
 Deno.test("ToDo class - constructor - generates unique IDs", () => {
   const todo1 = new ToDo(title, description, priority, dueDateObj);
   const todo2 = new ToDo(title, description, priority, dueDateObj);
-  
+
   // Both should have IDs (check they're truthy strings)
   assertStrictEquals(typeof todo1.id, "string");
   assertStrictEquals(typeof todo2.id, "string");
-  
+
   // IDs should be different (unique)
   assertNotStrictEquals(todo1.id, todo2.id);
 });

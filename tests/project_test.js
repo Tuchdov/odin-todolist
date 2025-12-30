@@ -1,8 +1,8 @@
 import {
   assertEquals,
   assertExists,
+  assertNotEquals,
   assertStrictEquals,
-  assertNotEquals, 
 } from "https://deno.land/std/testing/asserts.ts";
 
 import { Project } from "../src/project.js";
@@ -19,9 +19,24 @@ Deno.test("Project workflow with real ToDo instances", async (t) => {
   await t.step("add ToDo instances", () => {
     const project = new Project("House Chores");
 
-    const todo1 = new ToDo("Clean kitchen", "Deep clean", 2, "2025-01-01T00:00:00Z");
-    const todo2 = new ToDo("Do laundry", "Wash clothes", 1, "2025-01-03T00:00:00Z");
-    const todo3 = new ToDo("Take out trash", "Bins to street", 3, "2025-01-02T00:00:00Z");
+    const todo1 = new ToDo(
+      "Clean kitchen",
+      "Deep clean",
+      2,
+      "2025-01-01T00:00:00Z",
+    );
+    const todo2 = new ToDo(
+      "Do laundry",
+      "Wash clothes",
+      1,
+      "2025-01-03T00:00:00Z",
+    );
+    const todo3 = new ToDo(
+      "Take out trash",
+      "Bins to street",
+      3,
+      "2025-01-02T00:00:00Z",
+    );
 
     project.addTodo(todo1);
     project.addTodo(todo2);
@@ -42,7 +57,7 @@ Deno.test("Project workflow with real ToDo instances", async (t) => {
     project.addTodo(todoA);
     project.addTodo(todoB);
 
-    const found = project.findTodo(todoB.id);  // ✓ Pass ID
+    const found = project.findTodo(todoB.id); // ✓ Pass ID
     assertExists(found);
     assertStrictEquals(found, todoB);
 

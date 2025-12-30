@@ -1,117 +1,169 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css"
+    >
+    <link
+      rel="stylesheet"
+      href="https://fonts.bunny.net/css?family=inter:400,500,600,700"
+    >
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    >
+    <title>The Bear's to do list</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/modern-normalize/1.1.0/modern-normalize.min.css">
-  <link rel="stylesheet" href="https://fonts.bunny.net/css?family=inter:400,500,600,700">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <title>The Bear's to do list</title>
-</head>
+  <body>
+    <header>The Bear's To-Do List</header>
+    <div id="app">
+      <aside id="sidebar">
+        <ul id="project-list">
+          <!-- JS injects projects here -->
+        </ul>
+        <!-- Hidden form -->
+        <li>
+          <form id="edit-project-form" style="display: none">
+            <input
+              type="text"
+              id="edit-project-name-input"
+              placeholder="Project name..."
+              required
+            />
+            <button type="submit">Change</button>
+            <button type="button" id="cancel-edit-project-btn">Cancel</button>
+          </form>
+          <form id="add-project-form" style="display: none">
+            <input
+              type="text"
+              id="project-name-input"
+              placeholder="Project name..."
+              required
+            />
+            <button type="submit">Add</button>
+            <button type="button" id="cancel-project-btn">Cancel</button>
+          </form>
+          <button type="button" id="show-project-form-btn">
+            Add new project
+          </button>
+        </li>
+      </aside>
 
-<body>
-  <header>The Bear's To-Do List</header>
-  <div id="app">
+      <main id="content">
+        <ul id="task-list">
+          <!-- JS will inject tasks here -->
+        </ul>
+        <!-- Hidden form -->
+        <dialog id="edit-task-dialog">
+          <form id="edit-task-form" style="display: block">
+            <h2>Edit your task</h2>
+            <input
+              type="text"
+              id="task-title-edit-input"
+              placeholder="Task title..."
+              required
+            />
+            <input
+              type="text"
+              id="task-description-edit-input"
+              placeholder="You can add more details here."
+            />
+            <select id="task-priority-edit-input">
+              <option value="high">high</option>
+              <option value="medium" selected>medium</option>
+              <option value="low">low</option>
+            </select>
+            <label for="event-date">Select due date</label>
+            <input
+              type="date"
+              id="task-date-edit-input"
+              name="event-date"
+              required
+            >
+            <button type="submit">Save</button>
+            <button type="button" id="cancel-task-edit-btn">Cancel</button>
+          </form>
+        </dialog>
+        <!-- Hidden form -->
+        <dialog id="move-task-dialog">
+          <form id="move-task-form">
+            <h2>Move task to</h2>
+            <select id="move-task-select"></select>
+            <!-- options to select will go here -->
+            <button type="submit">Move</button>
+            <button type="button" id="task-move-cancel-btn">Cancel</button>
+          </form>
+        </dialog>
 
-
-    <aside id="sidebar">
-      <ul id="project-list">
-        <!-- JS injects projects here -->
-      </ul>
-      <!-- Hidden form -->
-      <li>
-        <form id="edit-project-form" style="display: none;">
-          <input type="text" id="edit-project-name-input" placeholder="Project name..." required />
-          <button type="submit">Change</button>
-          <button type="button" id="cancel-edit-project-btn">Cancel</button>
-        </form>
-        <form id="add-project-form" style="display: none;">
-          <input type="text" id="project-name-input" placeholder="Project name..." required />
-          <button type="submit">Add</button>
-          <button type="button" id="cancel-project-btn">Cancel</button>
-        </form>
-        <button type="button" id="show-project-form-btn">Add new project</button>
-      </li>
-    </aside>
-
-    <main id="content">
-      <ul id="task-list">
-        <!-- JS will inject tasks here -->
-      </ul>
-      <!-- Hidden form -->
-      <dialog id="edit-task-dialog">
-        <form id="edit-task-form" style="display: block;">
-          <h2>Edit your task</h2>
-          <input type="text" id="task-title-edit-input" placeholder="Task title..." required />
-          <input type="text" id="task-description-edit-input" placeholder="You can add more details here." />
-          <select id="task-priority-edit-input">
+        <button id="show-task-form-btn">Add task</button>
+        <!-- Hidden form -->
+        <form id="add-task-form" style="display: none">
+          <input
+            type="text"
+            id="task-title-input"
+            placeholder="Task title..."
+            required
+          />
+          <input
+            type="text"
+            id="task-description-input"
+            placeholder="You can add more details here."
+          />
+          <select id="task-priority-input">
             <option value="high">high</option>
             <option value="medium" selected>medium</option>
             <option value="low">low</option>
           </select>
           <label for="event-date">Select due date</label>
-          <input type="date" id="task-date-edit-input" name="event-date" required>
+          <input type="date" id="task-date-input" name="event-date" required>
+          <button type="submit">Add</button>
+          <button type="button" id="cancel-task-btn">Cancel</button>
+        </form>
+
+        <!-- Hidden form -->
+        <form id="edit-project-form" style="display: none">
+          <input
+            type="text"
+            id="edit-project-name-input"
+            placeholder="Project name..."
+            required
+          />
           <button type="submit">Save</button>
-          <button type="button" id="cancel-task-edit-btn">Cancel</button>
-
+          <button type="button" id="cancel-edit-project-btn">Cancel</button>
         </form>
-      </dialog>
-      <!-- Hidden form -->
-       <dialog id="move-task-dialog">
-        <form id ="move-task-form">
-          <h2>Move task to</h2>
-          <select id="move-task-select"></select>
-          <!-- options to select will go here -->
-           <button type="submit">Move</button>
-           <button type="button" id="task-move-cancel-btn">Cancel</button>
-        </form>
-       </dialog>
-
-      <button id="show-task-form-btn">Add task</button>
-      <!-- Hidden form -->
-      <form id="add-task-form" style="display: none;">
-        <input type="text" id="task-title-input" placeholder="Task title..." required />
-        <input type="text" id="task-description-input" placeholder="You can add more details here." />
-        <select id="task-priority-input">
-          <option value="high">high</option>
-          <option value="medium" selected>medium</option>
-          <option value="low">low</option>
-        </select>
-        <label for="event-date">Select due date</label>
-        <input type="date" id="task-date-input" name="event-date" required>
-        <button type="submit">Add</button>
-        <button type="button" id="cancel-task-btn">Cancel</button>
-      </form>
-
-      <!-- Hidden form -->
-      <form id="edit-project-form" style="display: none;">
-        <input type="text" id="edit-project-name-input" placeholder="Project name..." required />
-        <button type="submit">Save</button>
-        <button type="button" id="cancel-edit-project-btn">Cancel</button>
-      </form>
-
-    </main>
-  </div>
-  <footer>
-    <div class="footer-content">
-      <div class="footer-text">Proudly made by Dov Tuch</div>
-      <div class="social-links">
-        <a href="https://github.com/Tuchdov" class="social-link github" target="_blank" rel="noopener noreferrer">
-          <i class="fab fa-github"></i>
-          <span>GitHub</span>
-        </a>
-        <a href="https://www.linkedin.com/in/dov-tuch/" class="social-link linkedin" target="_blank"
-          rel="noopener noreferrer">
-          <i class="fab fa-linkedin"></i>
-          <span>LinkedIn</span>
-        </a>
-      </div>
+      </main>
     </div>
-  </footer>
-      <div id="toast"></div>
-  <script type="module" src="/src/main.js"></script>
-</body>
-
+    <footer>
+      <div class="footer-content">
+        <div class="footer-text">Proudly made by Dov Tuch</div>
+        <div class="social-links">
+          <a
+            href="https://github.com/Tuchdov"
+            class="social-link github"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/dov-tuch/"
+            class="social-link linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-linkedin"></i>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+    <div id="toast"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>

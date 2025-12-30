@@ -101,8 +101,10 @@
   --border-focus: #bfa094;
 
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  --font-mono: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", sans-serif;
+  --font-mono: "SF Mono", "Monaco", "Inconsolata", "Roboto Mono", monospace;
 
   --text-h1: 32px;
   --text-h2: 24px;
@@ -149,10 +151,14 @@
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-base:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   --shadow-focus: 0 0 0 3px rgba(191, 160, 148, 0.3);
 
   /* Animations */
@@ -194,10 +200,18 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
 }
 
-h1 { font-size: var(--text-h1); }
-h2 { font-size: var(--text-h2); }
-h3 { font-size: var(--text-h3); }
-h4 { font-size: var(--text-h4); }
+h1 {
+  font-size: var(--text-h1);
+}
+h2 {
+  font-size: var(--text-h2);
+}
+h3 {
+  font-size: var(--text-h3);
+}
+h4 {
+  font-size: var(--text-h4);
+}
 
 a {
   color: var(--text-link);
@@ -297,7 +311,7 @@ footer {
 }
 
 .social-link.linkedin:hover {
-  color: #0A66C2;
+  color: #0a66c2;
 }
 
 /* ===== Buttons ===== */
@@ -348,14 +362,18 @@ button[type="submit"]:active,
 }
 
 /* Secondary Button */
-button[type="button"]:not(.delete-btn-proj):not(.edit-btn-proj):not(.delete-btn-task):not(.edit-btn-task):not(.move-btn-task) {
+button[type="button"]:not(.delete-btn-proj):not(.edit-btn-proj):not(
+  .delete-btn-task
+):not(.edit-btn-task):not(.move-btn-task) {
   background: var(--color-neutral-100);
   color: var(--text-primary);
   border: 1px solid var(--border-light);
   font-weight: var(--font-medium);
 }
 
-button[type="button"]:not(.delete-btn-proj):not(.edit-btn-proj):not(.delete-btn-task):not(.edit-btn-task):not(.move-btn-task):hover {
+button[type="button"]:not(.delete-btn-proj):not(.edit-btn-proj):not(
+  .delete-btn-task
+):not(.edit-btn-task):not(.move-btn-task):hover {
   background: var(--color-neutral-200);
   border-color: var(--border-medium);
 }
