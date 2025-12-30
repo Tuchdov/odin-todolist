@@ -3,10 +3,9 @@
  * @param {Array} projects – The projects array from the app
  */
 
-import { App } from "./app.js";
 import { AppStorage } from "./storage.js";
 import { ToDo } from "./todo.js";
-import { Project } from "./project.js";
+
 // Track which project is currently active
 let activeProjectId = null;
 let activeTaskId = null;
@@ -200,7 +199,6 @@ export function handleTaskClick(event, app, domManipulator = document) {
   } else if (editBtn) {
     // show the modal and use the form
     const dialog = domManipulator.querySelector("#edit-task-dialog");
-    const form = domManipulator.querySelector("#edit-task-form");
     activeTaskId = taskId;
 
     // open dialog
@@ -226,7 +224,6 @@ export function handleTaskClick(event, app, domManipulator = document) {
   } else if (moveBtn) {
     // show the modal and use the form
     const dialog = domManipulator.querySelector("#move-task-dialog");
-    const form = domManipulator.querySelector("#move-task-form");
     activeTaskId = taskId;
 
     // get the select element, clear it and then repopulate
@@ -289,7 +286,6 @@ export function initEditProjectButton(app, domManipulator = document) {
   const projectNameInput = domManipulator.querySelector(
     "#edit-project-name-input",
   );
-  const editBtn = domManipulator.querySelector(".edit-btn-proj");
   const cancelBtn = domManipulator.querySelector("#cancel-edit-project-btn");
   cancelBtn.addEventListener("click", () => {
     // editBtn.style.display = 'block';

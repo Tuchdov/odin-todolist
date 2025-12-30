@@ -1,8 +1,6 @@
 "use strict";
 import "./style.css";
 
-import { App } from "./app.js";
-import { Project } from "./project.js";
 import { ToDo } from "./todo.js";
 import { AppStorage } from "./storage.js";
 import * as dom from "./dom.js";
@@ -11,8 +9,8 @@ const app = AppStorage.load();
 
 // if the app is emprty make some example projects, this is temp main version will start with empty todo
 if (app.projects.length === 0) {
-  let work = app.addProject("Forest Duties");
-  let personal = app.addProject("Den Life");
+  const work = app.addProject("Forest Duties");
+  const personal = app.addProject("Den Life");
 
   // add example todos
   const todoReport = new ToDo(

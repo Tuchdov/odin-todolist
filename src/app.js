@@ -13,7 +13,7 @@ findProject(projectName) - finds and returns a project
 moveTodo(taskTitle, fromProjectName, toProjectName) - moves a todo between projects */
 
   addProject(name, id = null) {
-    let proj = new Project(name, id);
+    const proj = new Project(name, id);
     this.projects.push(proj);
     return proj;
   }
